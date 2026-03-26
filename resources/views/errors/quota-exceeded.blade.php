@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-red-600 leading-tight">{{ __('Quota Exceeded') }}</h2>
+        <h2 class="font-semibold text-xl text-red-600 leading-tight">{{ __('할당량 초과') }}</h2>
     </x-slot>
 
     <div class="py-12">
@@ -13,16 +13,16 @@
                     </svg>
                 </div>
 
-                <h3 class="text-2xl font-bold text-gray-900 mb-2">Usage Limit Reached</h3>
+                <h3 class="text-2xl font-bold text-gray-900 mb-2">사용량 제한 도달</h3>
                 <p class="text-gray-500 mb-6">
-                    You've reached the <strong>{{ $metric ?? 'resource' }}</strong> limit on your
-                    <strong>{{ ucfirst(tenant()->plan) }}</strong> plan.
+                    <strong>{{ ucfirst(tenant()->plan) }}</strong> 플랜의
+                    <strong>{{ $metric ?? 'resource' }}</strong> 제한에 도달했습니다.
                 </p>
 
                 @if(isset($usage) && isset($limit))
                     <div class="mb-6 p-4 bg-gray-50 rounded-lg inline-block">
                         <span class="text-3xl font-bold text-red-600">{{ number_format($usage) }}</span>
-                        <span class="text-gray-400"> / {{ $limit === PHP_INT_MAX ? 'Unlimited' : number_format($limit) }}</span>
+                        <span class="text-gray-400"> / {{ $limit === PHP_INT_MAX ? '무제한' : number_format($limit) }}</span>
                     </div>
                 @endif
 
@@ -30,12 +30,12 @@
                     @if(tenant()->plan !== 'enterprise')
                         <a href="{{ route('tenant.subscription.plans', ['tenant' => tenant()->subdomain]) }}"
                            class="inline-flex items-center px-6 py-3 bg-blue-600 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-700">
-                            Upgrade Plan
+                            플랜 업그레이드
                         </a>
                     @endif
                     <a href="{{ route('tenant.usage', ['tenant' => tenant()->subdomain]) }}"
                        class="inline-flex items-center px-6 py-3 bg-white border border-gray-300 rounded-md font-semibold text-sm text-gray-700 uppercase tracking-widest hover:bg-gray-50">
-                        View Usage
+                        사용량 확인
                     </a>
                 </div>
             </div>

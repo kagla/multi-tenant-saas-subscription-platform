@@ -24,7 +24,7 @@ class TenantInvitation extends TenantMail implements ShouldQueue
 
     public function envelope(): Envelope
     {
-        return $this->tenantEnvelope("You've been invited to join {$this->mailTenant->name}");
+        return $this->tenantEnvelope("{$this->mailTenant->name}에 초대되었습니다");
     }
 
     public function content(): Content

@@ -14,23 +14,23 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('tenant.dashboard', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('대시보드') }}
                     </x-nav-link>
                     <x-nav-link :href="route('tenant.members', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.members')">
-                        {{ __('Members') }}
+                        {{ __('멤버') }}
                     </x-nav-link>
                     <x-nav-link :href="route('tenant.usage', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.usage')">
-                        {{ __('Usage') }}
+                        {{ __('사용량') }}
                     </x-nav-link>
                     @if(auth()->user()?->isOwner())
                         <x-nav-link :href="route('tenant.subscription.index', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.subscription.*')">
-                            {{ __('Billing') }}
+                            {{ __('결제') }}
                         </x-nav-link>
                         <x-nav-link :href="route('tenant.branding', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.branding')">
-                            {{ __('Branding') }}
+                            {{ __('브랜딩') }}
                         </x-nav-link>
                         <x-nav-link :href="route('tenant.settings', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.settings')">
-                            {{ __('Settings') }}
+                            {{ __('설정') }}
                         </x-nav-link>
                     @endif
                 </div>
@@ -61,14 +61,14 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit', ['tenant' => tenant()?->subdomain ?? ''])">
-                            {{ __('Profile') }}
+                            {{ __('프로필') }}
                         </x-dropdown-link>
 
                         <form method="POST" action="{{ route('logout', ['tenant' => tenant()?->subdomain ?? '']) }}">
                             @csrf
                             <x-dropdown-link :href="route('logout', ['tenant' => tenant()?->subdomain ?? ''])"
                                     onclick="event.preventDefault(); this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('로그아웃') }}
                             </x-dropdown-link>
                         </form>
                     </x-slot>
@@ -89,20 +89,20 @@
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('tenant.dashboard', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.dashboard')">
-                {{ __('Dashboard') }}
+                {{ __('대시보드') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tenant.members', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.members')">
-                {{ __('Members') }}
+                {{ __('멤버') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('tenant.usage', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.usage')">
-                {{ __('Usage') }}
+                {{ __('사용량') }}
             </x-responsive-nav-link>
             @if(auth()->user()?->isOwner())
                 <x-responsive-nav-link :href="route('tenant.subscription.index', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.subscription.*')">
-                    {{ __('Billing') }}
+                    {{ __('결제') }}
                 </x-responsive-nav-link>
                 <x-responsive-nav-link :href="route('tenant.settings', ['tenant' => tenant()?->subdomain ?? ''])" :active="request()->routeIs('tenant.settings')">
-                    {{ __('Settings') }}
+                    {{ __('설정') }}
                 </x-responsive-nav-link>
             @endif
         </div>
@@ -115,14 +115,14 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit', ['tenant' => tenant()?->subdomain ?? ''])">
-                    {{ __('Profile') }}
+                    {{ __('프로필') }}
                 </x-responsive-nav-link>
 
                 <form method="POST" action="{{ route('logout', ['tenant' => tenant()?->subdomain ?? '']) }}">
                     @csrf
                     <x-responsive-nav-link :href="route('logout', ['tenant' => tenant()?->subdomain ?? ''])"
                             onclick="event.preventDefault(); this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('로그아웃') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

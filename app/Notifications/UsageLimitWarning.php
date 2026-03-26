@@ -30,20 +30,20 @@ class UsageLimitWarning extends Notification implements ShouldQueue
         $isExceeded = $this->threshold >= 100;
 
         $message = (new MailMessage)
-            ->subject(($isExceeded ? '[Action Required] ' : '') . "{$metricLabel} usage at {$this->threshold}%")
-            ->greeting("Hello {$notifiable->name},");
+            ->subject(($isExceeded ? '[조치 필요] ' : '') . "{$metricLabel} 사용량 {$this->threshold}% 도달")
+            ->greeting("안녕하세요 {$notifiable->name}님,");
 
         if ($isExceeded) {
-            $message->line("Your organization **{$this->tenant->name}** has reached the **{$metricLabel}** limit on the **" . ucfirst($this->tenant->plan) . "** plan.")
-                ->line('Further usage of this resource may be restricted.')
-                ->action('Upgrade Plan', url('/subscription/plans'));
+            $message->line("조직 **{$this->tenant->name}**이(가) **" . ucfirst($this->tenant->plan) . "** 플랜의 **{$metricLabel}** 한도에 도달했습니다.")
+                ->line('이 리소스의 추가 사용이 제한될 수 있습니다.')
+                ->action('플랜 업그레이드', url('/subscription/plans'));
         } else {
-            $message->line("Your organization **{$this->tenant->name}** has used **{$this->currentPercent}%** of its **{$metricLabel}** allowance on the **" . ucfirst($this->tenant->plan) . "** plan.")
-                ->line('Consider upgrading to avoid service interruption.')
-                ->action('View Usage', url('/subscription'));
+            $message->line("조직 **{$this->tenant->name}**이(가) **" . ucfirst($this->tenant->plan) . "** 플랜의 **{$metricLabel}** 허용량 중 **{$this->currentPercent}%**를 사용했습니다.")
+                ->line('서비스 중단을 방지하려면 업그레이드를 고려해 주세요.')
+                ->action('사용량 확인', url('/subscription'));
         }
 
-        return $message->line('Thank you for using our platform.');
+        return $message->line('저희 플랫폼을 이용해 주셔서 감사합니다.');
     }
 
     public function toArray(object $notifiable): array

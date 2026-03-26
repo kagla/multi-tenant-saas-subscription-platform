@@ -32,11 +32,11 @@ class IdentifyTenant
             if ($subdomain === $host || $subdomain === '') {
                 return $next($request);
             }
-            abort(404, 'Tenant not found.');
+            abort(404, '테넌트를 찾을 수 없습니다.');
         }
 
         if (! $tenant->is_active) {
-            abort(403, 'This tenant account has been deactivated.');
+            abort(403, '이 테넌트 계정은 비활성화되었습니다.');
         }
 
         app()->instance('current_tenant', $tenant);

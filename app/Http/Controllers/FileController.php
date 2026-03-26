@@ -51,8 +51,8 @@ class FileController extends Controller
         $limit = $tenant->getPlanLimit('storage_mb');
 
         if ($limit !== PHP_INT_MAX && ($currentUsage + $fileSizeMB) > $limit) {
-            $errorMsg = "Storage limit exceeded. Used: " . round($currentUsage, 1) .
-                "MB / {$limit}MB. File size: " . round($fileSizeMB, 1) . "MB.";
+            $errorMsg = "저장소 제한 초과. 사용량: " . round($currentUsage, 1) .
+                "MB / {$limit}MB. 파일 크기: " . round($fileSizeMB, 1) . "MB.";
 
             if ($request->expectsJson()) {
                 return response()->json(['error' => $errorMsg, 'upgrade_url' => route('tenant.subscription.plans', ['tenant' => $tenant->subdomain])], 422);
@@ -78,7 +78,7 @@ class FileController extends Controller
         $path = "tenants/{$tenant->id}/{$filename}";
 
         if (! Storage::disk('local')->exists($path)) {
-            return back()->withErrors(['file' => 'File not found.']);
+            return back()->withErrors(['file' => '파일을 찾을 수 없습니다.']);
         }
 
         $fileSizeMB = round(Storage::disk('local')->size($path) / (1024 * 1024), 4);

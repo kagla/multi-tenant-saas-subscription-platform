@@ -47,7 +47,7 @@ class InvitationController extends Controller
             ->exists();
 
         if ($existing) {
-            return back()->withErrors(['email' => 'This user is already a member of this organization.']);
+            return back()->withErrors(['email' => '이미 이 조직의 멤버입니다.']);
         }
 
         // Check for existing pending invitation
@@ -59,7 +59,7 @@ class InvitationController extends Controller
             ->exists();
 
         if ($pendingInvite) {
-            return back()->withErrors(['email' => 'An invitation has already been sent to this email.']);
+            return back()->withErrors(['email' => '이미 초대가 발송되었습니다.']);
         }
 
         $invitation = Invitation::create([
@@ -101,7 +101,7 @@ class InvitationController extends Controller
         if ($user) {
             // Link existing user to tenant
             if ($user->tenant_id && $user->tenant_id !== $invitation->tenant_id) {
-                return back()->withErrors(['email' => 'This account already belongs to another organization.']);
+                return back()->withErrors(['email' => '이 계정은 이미 다른 조직에 소속되어 있습니다.']);
             }
             $user->withoutGlobalScopes()->where('id', $user->id)->update([
                 'tenant_id' => $invitation->tenant_id,

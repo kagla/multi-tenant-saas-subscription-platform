@@ -14,29 +14,29 @@
             <div class="flex gap-3">
                 <form method="POST" action="{{ url("/admin/tenants/{$tenant->id}/impersonate") }}">
                     @csrf
-                    <button class="px-4 py-2 bg-yellow-500 text-white rounded-md text-sm font-semibold hover:bg-yellow-400">Impersonate</button>
+                    <button class="px-4 py-2 bg-yellow-500 text-white rounded-md text-sm font-semibold hover:bg-yellow-400">가장 로그인</button>
                 </form>
                 @if($tenant->is_active)
-                    <form method="POST" action="{{ url("/admin/tenants/{$tenant->id}/suspend") }}" onsubmit="return confirm('Suspend this tenant?')">
+                    <form method="POST" action="{{ url("/admin/tenants/{$tenant->id}/suspend") }}" onsubmit="return confirm('이 테넌트를 정지하시겠습니까?')">
                         @csrf @method('PATCH')
-                        <button class="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-semibold hover:bg-red-500">Suspend</button>
+                        <button class="px-4 py-2 bg-red-600 text-white rounded-md text-sm font-semibold hover:bg-red-500">정지</button>
                     </form>
                 @else
                     <form method="POST" action="{{ url("/admin/tenants/{$tenant->id}/activate") }}">
                         @csrf @method('PATCH')
-                        <button class="px-4 py-2 bg-green-600 text-white rounded-md text-sm font-semibold hover:bg-green-500">Activate</button>
+                        <button class="px-4 py-2 bg-green-600 text-white rounded-md text-sm font-semibold hover:bg-green-500">활성화</button>
                     </form>
                 @endif
             </div>
         </div>
         <div class="mt-4 grid grid-cols-4 gap-4">
-            <div><span class="text-xs text-gray-500 uppercase">Plan</span>
+            <div><span class="text-xs text-gray-500 uppercase">플랜</span>
                 <p class="font-semibold">{{ ucfirst($tenant->plan) }}</p></div>
-            <div><span class="text-xs text-gray-500 uppercase">Status</span>
-                <p class="font-semibold {{ $tenant->is_active ? 'text-green-600' : 'text-red-600' }}">{{ $tenant->is_active ? 'Active' : 'Suspended' }}</p></div>
-            <div><span class="text-xs text-gray-500 uppercase">API Today</span>
+            <div><span class="text-xs text-gray-500 uppercase">상태</span>
+                <p class="font-semibold {{ $tenant->is_active ? 'text-green-600' : 'text-red-600' }}">{{ $tenant->is_active ? '활성' : '정지' }}</p></div>
+            <div><span class="text-xs text-gray-500 uppercase">오늘 API</span>
                 <p class="font-semibold">{{ number_format($usage['api_today']) }} / {{ $usage['api_limit'] === PHP_INT_MAX ? '&infin;' : number_format($usage['api_limit']) }}</p></div>
-            <div><span class="text-xs text-gray-500 uppercase">Storage</span>
+            <div><span class="text-xs text-gray-500 uppercase">저장소</span>
                 <p class="font-semibold">{{ number_format($usage['storage'], 1) }} MB / {{ $usage['storage_limit'] === PHP_INT_MAX ? '&infin;' : number_format($usage['storage_limit']) . ' MB' }}</p></div>
         </div>
     </div>

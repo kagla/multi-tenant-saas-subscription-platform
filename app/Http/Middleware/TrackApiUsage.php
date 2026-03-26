@@ -21,8 +21,8 @@ class TrackApiUsage
 
         if (! $tracker->canUse('api_calls_per_day')) {
             return response()->json([
-                'error' => 'Rate limit exceeded',
-                'message' => 'You have exceeded your daily API call limit. Please upgrade your plan.',
+                'error' => '요청 한도 초과',
+                'message' => '일일 API 호출 한도를 초과했습니다. 플랜을 업그레이드해 주세요.',
                 'limit' => $tenant->getPlanLimit('api_calls_per_day'),
                 'used' => (int) $tracker->getTodayUsage('api_calls_per_day'),
                 'plan' => $tenant->plan,

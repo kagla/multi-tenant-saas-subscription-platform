@@ -50,7 +50,7 @@ class SubscriptionController extends Controller
         $planConfig = config("plans.{$plan}");
 
         if (! $planConfig || ! $planConfig['stripe_price_id']) {
-            return back()->withErrors(['plan' => 'Invalid plan selected.']);
+            return back()->withErrors(['plan' => '잘못된 플랜이 선택되었습니다.']);
         }
 
         $stripe = new StripeClient(config('services.stripe.secret'));
@@ -121,7 +121,7 @@ class SubscriptionController extends Controller
             return view('tenant.subscription.success', compact('tenant', 'plan'));
         } catch (\Exception $e) {
             return redirect()->route('tenant.subscription.index', ['tenant' => $tenant->subdomain])
-                ->withErrors(['checkout' => 'Failed to verify payment session.']);
+                ->withErrors(['checkout' => '결제 세션 확인에 실패했습니다.']);
         }
     }
 
@@ -133,7 +133,7 @@ class SubscriptionController extends Controller
             return back()->with('status', 'subscription-cancelled');
         }
 
-        return back()->withErrors(['subscription' => 'Unable to cancel subscription.']);
+        return back()->withErrors(['subscription' => '구독을 취소할 수 없습니다.']);
     }
 
     public function resume(): RedirectResponse
@@ -144,7 +144,7 @@ class SubscriptionController extends Controller
             return back()->with('status', 'subscription-resumed');
         }
 
-        return back()->withErrors(['subscription' => 'Unable to resume subscription.']);
+        return back()->withErrors(['subscription' => '구독을 재개할 수 없습니다.']);
     }
 
     public function upgrade(Request $request): RedirectResponse
@@ -161,7 +161,7 @@ class SubscriptionController extends Controller
             if ($result) {
                 return back()->with('status', 'subscription-upgraded');
             }
-            return back()->withErrors(['subscription' => 'Unable to upgrade subscription.']);
+            return back()->withErrors(['subscription' => '구독을 업그레이드할 수 없습니다.']);
         }
 
         // No active subscription — redirect to checkout

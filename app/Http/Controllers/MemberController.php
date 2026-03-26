@@ -32,7 +32,7 @@ class MemberController extends Controller
             ->firstOrFail();
 
         if ($user->role === 'owner') {
-            return back()->withErrors(['role' => 'Cannot change the owner\'s role.']);
+            return back()->withErrors(['role' => '소유자의 역할은 변경할 수 없습니다.']);
         }
 
         $validated = $request->validate([
@@ -56,11 +56,11 @@ class MemberController extends Controller
             ->firstOrFail();
 
         if ($user->id === auth()->id()) {
-            return back()->withErrors(['member' => 'You cannot remove yourself.']);
+            return back()->withErrors(['member' => '자기 자신은 제거할 수 없습니다.']);
         }
 
         if ($user->role === 'owner') {
-            return back()->withErrors(['member' => 'Cannot remove the owner.']);
+            return back()->withErrors(['member' => '소유자는 제거할 수 없습니다.']);
         }
 
         $user->delete();

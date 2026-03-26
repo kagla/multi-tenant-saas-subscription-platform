@@ -17,15 +17,15 @@
         @endif
     </div>
 
-    <h2>You're invited!</h2>
-    <p>You've been invited to join <strong>{{ $tenantName }}</strong> as a <strong>{{ $role }}</strong>.</p>
-    <p>Click the button below to accept the invitation:</p>
+    <h2>초대되었습니다!</h2>
+    <p><strong>{{ $tenantName }}</strong>에 <strong>{{ $role }}</strong>(으)로 초대되었습니다.</p>
+    <p>아래 버튼을 클릭하여 초대를 수락하세요:</p>
     <p style="margin: 2rem 0;">
-        <a href="{{ $acceptUrl }}" class="btn">Accept Invitation</a>
+        <a href="{{ $acceptUrl }}" class="btn">초대 수락</a>
     </p>
     <div class="footer">
-        <p>This invitation will expire {{ $expiresAt->diffForHumans() }}.</p>
-        <p>If you didn't expect this invitation, you can safely ignore this email.</p>
+        <p>이 초대는 {{ $expiresAt->diffForHumans() }} 후에 만료됩니다.</p>
+        <p>예상하지 못한 초대라면, 이 이메일을 무시해도 됩니다.</p>
     </div>
 </body>
 </html>

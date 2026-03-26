@@ -1,6 +1,6 @@
 <x-guest-layout>
     <div class="mb-4 text-sm text-gray-600">
-        You've been invited to join <strong>{{ $invitation->tenant->name }}</strong> as a <strong>{{ $invitation->role }}</strong>.
+        <strong>{{ $invitation->tenant->name }}</strong>에 <strong>{{ $invitation->role }}</strong>(으)로 초대되었습니다.
     </div>
 
     @if ($errors->any())
@@ -20,34 +20,34 @@
 
         @if(!$existingUser)
             <div class="mb-4">
-                <x-input-label for="name" :value="__('Name')" />
+                <x-input-label for="name" value="이름" />
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
                 <x-input-error :messages="$errors->get('name')" class="mt-2" />
             </div>
 
             <div class="mb-4">
-                <x-input-label for="email" :value="__('Email')" />
+                <x-input-label for="email" value="이메일" />
                 <x-text-input id="email" class="block mt-1 w-full bg-gray-100" type="email" :value="$invitation->email" disabled />
             </div>
 
             <div class="mb-4">
-                <x-input-label for="password" :value="__('Password')" />
+                <x-input-label for="password" value="비밀번호" />
                 <x-text-input id="password" class="block mt-1 w-full" type="password" name="password" required />
                 <x-input-error :messages="$errors->get('password')" class="mt-2" />
             </div>
 
             <div class="mb-4">
-                <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+                <x-input-label for="password_confirmation" value="비밀번호 확인" />
                 <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password" name="password_confirmation" required />
             </div>
         @else
             <div class="mb-4 p-4 bg-blue-50 border border-blue-200 text-blue-700 rounded-lg text-sm">
-                An account with <strong>{{ $invitation->email }}</strong> already exists. Clicking accept will link your account to this organization.
+                <strong>{{ $invitation->email }}</strong> 계정이 이미 존재합니다. 수락을 클릭하면 계정이 이 조직에 연결됩니다.
             </div>
         @endif
 
         <x-primary-button class="w-full justify-center">
-            {{ __('Accept Invitation') }}
+            초대 수락
         </x-primary-button>
     </form>
 </x-guest-layout>

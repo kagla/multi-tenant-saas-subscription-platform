@@ -75,7 +75,7 @@ class TenantController extends Controller
             ->first();
 
         if (! $owner) {
-            return back()->withErrors(['impersonate' => 'No owner found for this tenant.']);
+            return back()->withErrors(['impersonate' => '이 테넌트에 소유자가 없습니다.']);
         }
 
         session()->put('impersonating_from', auth()->id());

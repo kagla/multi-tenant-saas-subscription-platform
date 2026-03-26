@@ -13,7 +13,7 @@ class CheckSubscription
         $tenant = tenant();
 
         if (! $tenant) {
-            abort(403, 'No tenant context.');
+            abort(403, '테넌트 컨텍스트가 없습니다.');
         }
 
         // If no specific plans required, just check that subscription is active

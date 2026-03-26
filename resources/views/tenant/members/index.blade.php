@@ -2,12 +2,12 @@
     <x-slot name="header">
         <div class="flex justify-between items-center">
             <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                {{ __('Members') }}
+                멤버
             </h2>
             @can('manageMembers', $tenant)
                 <a href="{{ route('tenant.invitations.create', ['tenant' => $tenant->subdomain]) }}"
                    class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">
-                    {{ __('Invite Member') }}
+                    멤버 초대
                 </a>
             @endcan
         </div>
@@ -17,12 +17,12 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (session('status') === 'role-updated')
                 <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">
-                    Member role updated successfully.
+                    멤버 역할이 변경되었습니다.
                 </div>
             @endif
             @if (session('status') === 'member-removed')
                 <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">
-                    Member removed successfully.
+                    멤버가 제거되었습니다.
                 </div>
             @endif
             @if ($errors->any())
@@ -38,12 +38,12 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                             <tr>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Joined</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">이름</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">이메일</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">역할</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">가입일</th>
                                 @can('manageMembers', $tenant)
-                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                                    <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">작업</th>
                                 @endcan
                             </tr>
                         </thead>
@@ -60,7 +60,10 @@
                                             @elseif($member->role === 'admin') bg-blue-100 text-blue-800
                                             @else bg-gray-100 text-gray-800
                                             @endif">
-                                            {{ ucfirst($member->role) }}
+                                            @if($member->role === 'owner') 소유자
+                                            @elseif($member->role === 'admin') 관리자
+                                            @else 멤버
+                                            @endif
                                         </span>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -75,8 +78,8 @@
                                                         @method('PATCH')
                                                         <select name="role" onchange="this.form.submit()"
                                                             class="text-sm border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500">
-                                                            <option value="admin" {{ $member->role === 'admin' ? 'selected' : '' }}>Admin</option>
-                                                            <option value="member" {{ $member->role === 'member' ? 'selected' : '' }}>Member</option>
+                                                            <option value="admin" {{ $member->role === 'admin' ? 'selected' : '' }}>관리자</option>
+                                                            <option value="member" {{ $member->role === 'member' ? 'selected' : '' }}>멤버</option>
                                                         </select>
                                                     </form>
 
@@ -84,7 +87,7 @@
                                                         <template x-if="!confirmDelete">
                                                             <button @click="confirmDelete = true"
                                                                 class="text-red-600 hover:text-red-900 text-sm font-medium">
-                                                                Remove
+                                                                제거
                                                             </button>
                                                         </template>
                                                         <template x-if="confirmDelete">
@@ -93,11 +96,11 @@
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 <button type="submit" class="text-red-600 hover:text-red-900 text-sm font-bold">
-                                                                    Confirm
+                                                                    확인
                                                                 </button>
                                                                 <button type="button" @click="confirmDelete = false"
                                                                     class="text-gray-500 hover:text-gray-700 text-sm">
-                                                                    Cancel
+                                                                    취소
                                                                 </button>
                                                             </form>
                                                         </template>

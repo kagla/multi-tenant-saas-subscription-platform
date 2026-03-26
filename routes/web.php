@@ -19,7 +19,7 @@ Route::post('/login', function (\Illuminate\Http\Request $request) {
     $request->validate(['email' => 'required|email', 'password' => 'required']);
 
     if (! \Illuminate\Support\Facades\Auth::attempt($request->only('email', 'password'))) {
-        return back()->withErrors(['email' => 'Invalid credentials.'])->withInput();
+        return back()->withErrors(['email' => '이메일 또는 비밀번호가 올바르지 않습니다.'])->withInput();
     }
 
     $request->session()->regenerate();

@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Organization Settings') }}
+            조직 설정
         </h2>
     </x-slot>
 
@@ -11,7 +11,7 @@
                 <div class="p-6">
                     @if (session('status') === 'settings-updated')
                         <div class="mb-4 p-4 bg-green-50 border border-green-200 text-green-700 rounded-lg">
-                            Settings updated successfully.
+                            설정이 업데이트되었습니다.
                         </div>
                     @endif
 
@@ -20,14 +20,14 @@
                         @method('PUT')
 
                         <div class="mb-6">
-                            <x-input-label for="name" :value="__('Organization Name')" />
+                            <x-input-label for="name" value="조직 이름" />
                             <x-text-input id="name" name="name" type="text" class="mt-1 block w-full"
                                 :value="old('name', $tenant->name)" required />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
                         <div class="mb-6">
-                            <x-input-label for="subdomain" :value="__('Subdomain')" />
+                            <x-input-label for="subdomain" value="서브도메인" />
                             <div class="mt-1 flex rounded-md shadow-sm">
                                 <x-text-input id="subdomain" name="subdomain" type="text" class="block w-full rounded-r-none"
                                     :value="old('subdomain', $tenant->subdomain)" required />
@@ -39,7 +39,7 @@
                         </div>
 
                         <div class="mb-6">
-                            <x-input-label :value="__('Current Plan')" />
+                            <x-input-label value="현재 플랜" />
                             <div class="mt-1">
                                 <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium
                                     @if($tenant->plan === 'free') bg-blue-100 text-blue-800
@@ -52,7 +52,7 @@
                         </div>
 
                         <div class="flex items-center gap-4">
-                            <x-primary-button>{{ __('Save') }}</x-primary-button>
+                            <x-primary-button>저장</x-primary-button>
                         </div>
                     </form>
                 </div>

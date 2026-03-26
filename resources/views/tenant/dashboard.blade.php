@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ $currentTenant->name }} {{ __('Dashboard') }}
+            {{ $currentTenant->name }} 대시보드
         </h2>
     </x-slot>
 
@@ -27,11 +27,11 @@
             {{-- Stats Cards --}}
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-sm text-gray-500">Subdomain</div>
+                    <div class="text-sm text-gray-500">서브도메인</div>
                     <div class="text-2xl font-bold text-gray-900">{{ $currentTenant->subdomain }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-sm text-gray-500">Plan</div>
+                    <div class="text-sm text-gray-500">플랜</div>
                     <div class="text-2xl font-bold">
                         <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold
                             @if($currentTenant->plan === 'free') bg-blue-100 text-blue-800
@@ -42,25 +42,25 @@
                     </div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-sm text-gray-500">Members</div>
+                    <div class="text-sm text-gray-500">멤버</div>
                     <div class="text-2xl font-bold text-gray-900">{{ $userCount }}</div>
                 </div>
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                    <div class="text-sm text-gray-500">Status</div>
+                    <div class="text-sm text-gray-500">상태</div>
                     <div class="text-2xl font-bold {{ $currentTenant->is_active ? 'text-green-600' : 'text-red-600' }}">
-                        {{ $currentTenant->is_active ? 'Active' : 'Inactive' }}
+                        {{ $currentTenant->is_active ? '활성' : '비활성' }}
                     </div>
                 </div>
             </div>
 
             {{-- Usage --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 mb-6">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">Usage</h3>
+                <h3 class="text-lg font-medium text-gray-900 mb-4">사용량</h3>
                 <div class="space-y-4">
                     <div>
                         <div class="flex justify-between text-sm mb-1">
-                            <span class="text-gray-600">API Calls (today)</span>
-                            <span class="font-medium">{{ number_format($apiUsage) }} / {{ $apiLimit === PHP_INT_MAX ? 'Unlimited' : number_format($apiLimit) }}</span>
+                            <span class="text-gray-600">API 호출 (오늘)</span>
+                            <span class="font-medium">{{ number_format($apiUsage) }} / {{ $apiLimit === PHP_INT_MAX ? '무제한' : number_format($apiLimit) }}</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2.5">
                             <div class="h-2.5 rounded-full {{ $apiPercent > 80 ? 'bg-red-500' : 'bg-blue-500' }}"
@@ -69,8 +69,8 @@
                     </div>
                     <div>
                         <div class="flex justify-between text-sm mb-1">
-                            <span class="text-gray-600">Storage</span>
-                            <span class="font-medium">{{ number_format($storageUsage, 1) }} MB / {{ $storageLimit === PHP_INT_MAX ? 'Unlimited' : number_format($storageLimit) . ' MB' }}</span>
+                            <span class="text-gray-600">저장소</span>
+                            <span class="font-medium">{{ number_format($storageUsage, 1) }} MB / {{ $storageLimit === PHP_INT_MAX ? '무제한' : number_format($storageLimit) . ' MB' }}</span>
                         </div>
                         <div class="w-full bg-gray-200 rounded-full h-2.5">
                             <div class="h-2.5 rounded-full {{ $storagePercent > 80 ? 'bg-red-500' : 'bg-blue-500' }}"
@@ -82,7 +82,7 @@
 
             {{-- Features --}}
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
-                <h3 class="text-lg font-medium text-gray-900 mb-4">Features</h3>
+                <h3 class="text-lg font-medium text-gray-900 mb-4">기능</h3>
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
                     @foreach(['basic_dashboard', 'advanced_analytics', 'custom_domain', 'priority_support', 'sso', 'audit_log', 'dedicated_support'] as $feature)
                         <div class="flex items-center gap-2 text-sm">

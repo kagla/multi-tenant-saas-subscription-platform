@@ -1,26 +1,26 @@
 @extends('admin.layout')
-@section('title', 'Dashboard')
+@section('title', '대시보드')
 
 @section('content')
     {{-- Stats Cards --}}
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
         <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-            <p class="text-sm text-gray-500">Total Tenants</p>
+            <p class="text-sm text-gray-500">전체 테넌트</p>
             <p class="text-3xl font-bold text-gray-900">{{ $totalTenants }}</p>
-            <p class="text-xs text-gray-400 mt-1">{{ $activeTenants }} active</p>
+            <p class="text-xs text-gray-400 mt-1">{{ $activeTenants }} 활성</p>
         </div>
         <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-            <p class="text-sm text-gray-500">Total Users</p>
+            <p class="text-sm text-gray-500">전체 사용자</p>
             <p class="text-3xl font-bold text-gray-900">{{ $totalUsers }}</p>
             <p class="text-xs text-gray-400 mt-1">DAU: {{ $dau }} / MAU: {{ $mau }}</p>
         </div>
         <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-            <p class="text-sm text-gray-500">MRR</p>
+            <p class="text-sm text-gray-500">MRR (월간 반복 수익)</p>
             <p class="text-3xl font-bold text-green-600">${{ number_format($mrr) }}</p>
-            <p class="text-xs text-gray-400 mt-1">{{ $activeSubscriptions }} active subscriptions</p>
+            <p class="text-xs text-gray-400 mt-1">{{ $activeSubscriptions }} 활성 구독</p>
         </div>
         <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-            <p class="text-sm text-gray-500">Plan Distribution</p>
+            <p class="text-sm text-gray-500">플랜 분포</p>
             <div class="mt-2 space-y-1">
                 @foreach(['free' => 'gray', 'pro' => 'blue', 'enterprise' => 'purple'] as $plan => $color)
                     <div class="flex justify-between text-sm">
@@ -35,13 +35,13 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {{-- Signup Chart --}}
         <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">New Signups (30 days)</h3>
+            <h3 class="text-lg font-medium text-gray-900 mb-4">신규 가입 (30일)</h3>
             <div style="height: 250px;"><canvas id="signupChart"></canvas></div>
         </div>
 
         {{-- Plan Distribution Pie --}}
         <div class="bg-white rounded-lg shadow-sm p-6 border border-gray-200">
-            <h3 class="text-lg font-medium text-gray-900 mb-4">Plan Distribution</h3>
+            <h3 class="text-lg font-medium text-gray-900 mb-4">플랜 분포</h3>
             <div style="height: 250px;"><canvas id="planChart"></canvas></div>
         </div>
     </div>
@@ -49,7 +49,7 @@
     {{-- Recent Activity --}}
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
         <div class="p-4 border-b border-gray-200">
-            <h3 class="text-lg font-medium text-gray-900">Recent Activity</h3>
+            <h3 class="text-lg font-medium text-gray-900">최근 활동</h3>
         </div>
         <div class="divide-y divide-gray-100 max-h-96 overflow-auto">
             @forelse($recentLogs as $log)
@@ -73,7 +73,7 @@
                     </div>
                 </div>
             @empty
-                <div class="px-4 py-8 text-center text-gray-400 text-sm">No activity yet.</div>
+                <div class="px-4 py-8 text-center text-gray-400 text-sm">활동 없음</div>
             @endforelse
         </div>
     </div>
@@ -89,7 +89,7 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
             labels: Object.keys(signupData).map(d => { const dt = new Date(d+'T00:00:00'); return dt.toLocaleDateString('en',{month:'short',day:'numeric'}); }),
             datasets: [{
-                label: 'New Tenants',
+                label: '신규 테넌트',
                 data: Object.values(signupData),
                 borderColor: 'rgb(59,130,246)',
                 backgroundColor: 'rgba(59,130,246,0.1)',
