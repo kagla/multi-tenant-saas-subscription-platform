@@ -50,7 +50,7 @@
                             <h4 class="text-xl font-bold text-gray-900">{{ $plan['name'] }}</h4>
                             <p class="mt-1 text-sm text-gray-500">{{ $plan['description'] }}</p>
                             <div class="mt-4">
-                                <span class="text-4xl font-extrabold text-gray-900">${{ $plan['price'] }}</span>
+                                <span class="text-4xl font-extrabold text-gray-900">{{ number_format($plan['price_krw'] ?? $plan['price']) }}원</span>
                                 <span class="text-gray-500">/월</span>
                             </div>
                             @if($plan['trial_days'] > 0 && $tenant->plan === 'free')
@@ -103,9 +103,19 @@
                                     {{ $tenant->plan === 'free' ? '현재 플랜' : '다운그레이드하려면 취소하세요' }}
                                 </button>
                             @else
-                                <form method="POST" action="{{ $tenant->activeSubscription
-                                    ? route('tenant.subscription.upgrade', ['tenant' => $tenant->subdomain])
-                                    : route('tenant.subscription.checkout', ['tenant' => $tenant->subdomain]) }}">
+                                @php
+                                    $pgDriver = config('services.pg.driver', 'inicis');
+                                    if ($pgDriver === 'inicis') {
+                                        $checkoutRoute = $tenant->activeSubscription
+                                            ? route('tenant.inicis.billing.checkout', ['tenant' => $tenant->subdomain])
+                                            : route('tenant.inicis.billing.checkout', ['tenant' => $tenant->subdomain]);
+                                    } else {
+                                        $checkoutRoute = $tenant->activeSubscription
+                                            ? route('tenant.subscription.upgrade', ['tenant' => $tenant->subdomain])
+                                            : route('tenant.subscription.checkout', ['tenant' => $tenant->subdomain]);
+                                    }
+                                @endphp
+                                <form method="POST" action="{{ $checkoutRoute }}">
                                     @csrf
                                     <input type="hidden" name="plan" value="{{ $key }}">
                                     <button type="submit"

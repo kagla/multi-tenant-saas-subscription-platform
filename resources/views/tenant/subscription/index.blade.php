@@ -45,7 +45,7 @@
                                 {{ strtoupper($tenant->plan) }}
                             </span>
                             <span class="text-2xl font-bold text-gray-900">
-                                ${{ $plans[$tenant->plan]['price'] }}/월
+                                {{ number_format($plans[$tenant->plan]['price_krw'] ?? $plans[$tenant->plan]['price']) }}원/월
                             </span>
                         </div>
                         <p class="mt-1 text-sm text-gray-500">{{ $plans[$tenant->plan]['description'] }}</p>
@@ -59,7 +59,12 @@
                         @endif
 
                         @if($subscription && !$subscription->ends_at)
-                            <form method="POST" action="{{ route('tenant.subscription.cancel', ['tenant' => $tenant->subdomain]) }}"
+                            @php
+                                $cancelRoute = config('services.pg.driver') === 'inicis'
+                                    ? route('tenant.inicis.cancel', ['tenant' => $tenant->subdomain])
+                                    : route('tenant.subscription.cancel', ['tenant' => $tenant->subdomain]);
+                            @endphp
+                            <form method="POST" action="{{ $cancelRoute }}"
                                   onsubmit="return confirm('구독을 취소하시겠습니까?')">
                                 @csrf
                                 @method('DELETE')

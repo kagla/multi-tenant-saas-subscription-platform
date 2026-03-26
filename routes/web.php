@@ -44,6 +44,11 @@ Route::post('/webhook/stripe', [WebhookController::class, 'handleWebhook'])
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)
     ->name('webhook.stripe');
 
+// 이니시스 노티 (서버간 통신, CSRF 제외)
+Route::post('/webhook/inicis', [\App\Http\Controllers\InicisController::class, 'notify'])
+    ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\PreventRequestForgery::class)
+    ->name('webhook.inicis');
+
 // ─── Tenant subdomain routes ({tenant}.app.test) ───
 Route::domain('{tenant}.' . config('app.base_domain'))
     ->middleware(IdentifyTenant::class)

@@ -22,6 +22,7 @@ class Tenant extends Model
         'custom_domain',
         'email_from_name',
         'email_from_address',
+        'billing_key',
     ];
 
     protected function casts(): array

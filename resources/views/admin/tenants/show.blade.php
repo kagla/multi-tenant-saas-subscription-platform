@@ -44,7 +44,7 @@
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {{-- Members --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div class="p-4 border-b border-gray-200"><h4 class="font-medium">Members ({{ $members->count() }})</h4></div>
+            <div class="p-4 border-b border-gray-200"><h4 class="font-medium">멤버 ({{ $members->count() }})</h4></div>
             <div class="divide-y divide-gray-100">
                 @foreach($members as $member)
                     <div class="px-4 py-3 flex justify-between items-center">
@@ -63,9 +63,9 @@
 
         {{-- Subscriptions --}}
         <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-            <div class="p-4 border-b border-gray-200"><h4 class="font-medium">Subscription History</h4></div>
+            <div class="p-4 border-b border-gray-200"><h4 class="font-medium">구독 이력</h4></div>
             @if($subscriptions->isEmpty())
-                <div class="p-4 text-gray-400 text-sm">No subscriptions.</div>
+                <div class="p-4 text-gray-400 text-sm">구독 없음</div>
             @else
                 <div class="divide-y divide-gray-100">
                     @foreach($subscriptions as $sub)
@@ -77,8 +77,8 @@
                                     {{ $sub->stripe_status }}
                                 </span>
                             </div>
-                            <p class="text-xs text-gray-400 mt-1">Created {{ $sub->created_at->diffForHumans() }}
-                                @if($sub->ends_at) &middot; Ends {{ $sub->ends_at->format('M j, Y') }} @endif
+                            <p class="text-xs text-gray-400 mt-1">생성일 {{ $sub->created_at->diffForHumans() }}
+                                @if($sub->ends_at) &middot; 종료일 {{ $sub->ends_at->format('Y-m-d') }} @endif
                             </p>
                         </div>
                     @endforeach
@@ -89,7 +89,7 @@
 
     {{-- Audit Log --}}
     <div class="bg-white rounded-lg shadow-sm border border-gray-200">
-        <div class="p-4 border-b border-gray-200"><h4 class="font-medium">Activity Log</h4></div>
+        <div class="p-4 border-b border-gray-200"><h4 class="font-medium">활동 로그</h4></div>
         <div class="divide-y divide-gray-100 max-h-80 overflow-auto">
             @forelse($logs as $log)
                 <div class="px-4 py-3">
@@ -100,7 +100,7 @@
                     </p>
                 </div>
             @empty
-                <div class="p-4 text-gray-400 text-sm">No activity.</div>
+                <div class="p-4 text-gray-400 text-sm">활동 없음</div>
             @endforelse
         </div>
     </div>

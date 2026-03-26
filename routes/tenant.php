@@ -61,6 +61,14 @@ Route::middleware('auth')->group(function () {
     Route::post('/subscription/resume', [SubscriptionController::class, 'resume'])->name('tenant.subscription.resume');
     Route::post('/subscription/upgrade', [SubscriptionController::class, 'upgrade'])->name('tenant.subscription.upgrade');
 
+    // 이니시스 결제
+    Route::post('/payment/inicis/checkout', [\App\Http\Controllers\InicisController::class, 'checkout'])->name('tenant.inicis.checkout');
+    Route::match(['get', 'post'], '/payment/inicis/return', [\App\Http\Controllers\InicisController::class, 'return'])->name('tenant.inicis.return');
+    Route::post('/payment/inicis/billing/checkout', [\App\Http\Controllers\InicisController::class, 'billingCheckout'])->name('tenant.inicis.billing.checkout');
+    Route::match(['get', 'post'], '/payment/inicis/billing/return', [\App\Http\Controllers\InicisController::class, 'billingReturn'])->name('tenant.inicis.billing.return');
+    Route::get('/payment/inicis/close', [\App\Http\Controllers\InicisController::class, 'close'])->name('tenant.inicis.close');
+    Route::delete('/payment/inicis/cancel', [\App\Http\Controllers\InicisController::class, 'cancelPayment'])->name('tenant.inicis.cancel');
+
     // API routes with usage tracking (Pro+ only)
     Route::middleware(['subscription:pro,enterprise', TrackApiUsage::class])
         ->prefix('api/v1')

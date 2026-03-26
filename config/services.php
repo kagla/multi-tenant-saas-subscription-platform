@@ -41,4 +41,17 @@ return [
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
     ],
 
+    'inicis' => [
+        'mid' => env('INICIS_MID', 'INIpayTest'),
+        'signkey' => env('INICIS_SIGNKEY', 'SU5JTElURV9UUklQTEVERVNfS0VZU1RS'),
+        'api_key' => env('INICIS_API_KEY', 'ItEQKi3rY7uvDS8l'),
+        'iv' => env('INICIS_IV', 'HYb3HAxk65TRbMni'),
+        'billing_mid' => env('INICIS_BILLING_MID', 'INIBillTst'),
+        'api_url' => env('INICIS_API_URL', 'https://iniapi.inicis.com'),
+    ],
+
+    'pg' => [
+        'driver' => env('PG_DRIVER', 'inicis'), // inicis or stripe
+    ],
+
 ];
